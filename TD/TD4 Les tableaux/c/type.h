@@ -1,6 +1,6 @@
 void input(int* n) {
   do {
-    printf("n=");
+    printf(">>");
     scanf("%d", n);
   } while (*n <= 0);
 }
