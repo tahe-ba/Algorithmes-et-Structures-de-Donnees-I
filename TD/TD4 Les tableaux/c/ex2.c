@@ -58,8 +58,10 @@ void afficher_ss(int t[], int s,int e) {
 void main() {
   int n,seq_crois=0,ind_start=0,ind_end=0;
   int t[100];
+  printf("taille de tableau ");
   input(&n);
   remplir(t, n);
+  afficher(t,n);
   printf("\n");
   ss(t,n,&seq_crois,&ind_start,&ind_end);
   printf("nombre de sequences croissantes: %d \n",seq_crois);
