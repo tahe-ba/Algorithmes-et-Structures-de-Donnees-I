@@ -24,12 +24,19 @@ typedef struct {
 
 void remplir_date(birth* f) {
     printf ("saisir la date de naissance de l'employé:\n");
+    do{
         printf("\tjour: ");
         scanf("%d",&f->jour);
+    }while(((f->jour)>31)||((f->jour)<1));
+    do{    
         printf("\tmois: ");
         scanf("%d",&f->mois);
+    }while(((f->mois)>12)||((f->mois)<1));
+    do{
         printf("\tannée: ");
         scanf("%d",&f->anne);
+    }while(((f->anne)>3333)||((f->anne)<1111));
+
 }
 
 void remplir_adr(adresse* f) {
@@ -85,30 +92,41 @@ void afficher_fiche(fiche f) {
 }
 
 void recherche_nom(fiche* f,int n) {
-int i;
+int i=0;
 char name[30];
-int a;
-    printf("veillez entrer le nom que vous voulez trouvez: ");
+int a=-1;
+    printf("\nveillez entrer le nom que vous voulez trouvez: ");
     scanf("%s",name);
-    for (i=0;i<n;i++){
+    do{
         if (strcmp(f[i].nom,name) == 0) {
             a=i;
+            afficher_fiche(f[a]);
         }
-    }
-afficher_fiche(f[a]);
+        i++;
+    }while ((i<n)&&(a!=i));
+
+    if (a==-1) {
+            printf("Pas de correspondance\n");
+        }
 }
 
 void recherche_tel(fiche* f,int n) {
-int i,a;
+int i=0,a=-1;
 int num;
-    printf("veillez entrer le numero de telephone que vous voulez trouvez: ");
+    printf("\nveillez entrer le numero de telephone que vous voulez trouvez: ");
     scanf("%d",&num);
-    for (i=0;i<n;i++){
+    
+    do{
         if (f[i].number == num) {
             a=i;
+            afficher_fiche(f[a]);
         }
-    }
-afficher_fiche(f[a]);
+        i++;
+    }while ((i<n)&&(a!=i));
+
+    if (a==-1) {
+            printf("Pas de correspondance\n");
+        }
 }
 
 void main (){
