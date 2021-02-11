@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<string.h>
 #define N 3
 typedef struct {
     char rue[20];
@@ -34,15 +35,14 @@ void remplir_date(birth* f) {
 void remplir_adr(adresse* f) {
     printf ("saisir l'adress de l'employé:\n");
         printf("\tnom de la rue: ");
-        scanf("%s",&f->rue);
+        scanf("%s",f->rue);
         printf("\tcode postal : ");
         scanf("%d",&f->code);
         printf("\tnom de la ville: ");
-        scanf("%s",&f->ville);
+        scanf("%s",f->ville);
 }
 
 void remplir_fiche(fiche* f) {
-    printf ("\nsaisie des informations de l'employé:\n");
         printf("\tnom: ");
         scanf("%s",f->nom);
         printf("\tprenom: ");
@@ -83,11 +83,41 @@ void afficher_fiche(fiche f) {
     afficher_date(f.date);
 }
 
+void recherche_nom(fiche* f,int n) {
+int i;
+char name[30];
+int a;
+    printf("veillez entrer le nom que vous voulez trouvez: ");
+    scanf("%s",name);
+    for (i=0;i<n;i++){
+        if (strcmp(f[i].nom,name) == 0) {
+            a=i;
+        }
+    }
+afficher_fiche(f[a]);
+}
+
+void recherche_tel(fiche* f,int n) {
+int i,a;
+int num;
+    printf("veillez entrer le numero de telephone que vous voulez trouvez: ");
+    scanf("%d",&num);
+    for (i=0;i<n;i++){
+        if (f[i].number == num) {
+            a=i;
+        }
+    }
+afficher_fiche(f[a]);
+}
+
 void main (){
 fiche f1;
 fiche liste [N];
-remplir_fiche(&f1);
-afficher_fiche(f1);
-//remplir_n_fiche(&liste,N);
+//remplir_fiche(&f1);
+//afficher_fiche(f1);
+remplir_n_fiche(liste,N);
+recherche_nom(liste,N);
+recherche_tel(liste,N);
+
 }
 //rechercche par nom 
