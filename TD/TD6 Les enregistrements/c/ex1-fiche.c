@@ -46,7 +46,8 @@ void remplir_fiche(fiche* f) {
         printf("\tnom: ");
         scanf("%s",f->nom);
         printf("\tprenom: ");
-        scanf("%s",f->prenom);
+        while ((getchar()) != '\n'); 
+        scanf("%[^\n]",f->prenom);
         remplir_adr(&f->adr);
         printf("\tnumero de telephone: ");
         scanf("%d",&f->number);
@@ -118,6 +119,4 @@ fiche liste [N];
 remplir_n_fiche(liste,N);
 recherche_nom(liste,N);
 recherche_tel(liste,N);
-
 }
-//rechercche par nom 
