@@ -1,6 +1,6 @@
 void input(int* n) {
   do {
-    printf(">>");
+    printf(">> ");
     scanf("%d", n);
   } while (*n <= 0);
 }
@@ -18,4 +18,13 @@ void afficher(int t[], int n) {
   for (i = 0; i < n; i++) {
     printf("%d\t ", t[i]);
   }
+}
+
+void main() {
+  int n;
+  int t[100];
+  printf("taille de tableau ");
+  input(&n);
+  remplir(t, n);
+  afficher(t,n);
 }
