@@ -64,7 +64,7 @@ void recherche_code(client* f, int n) {
     do {
         if (f[i].code == code) {
             a = i;
-            printf("\tsolde du client %d du client %d : %f\n", f[a].code ,f[a].solde);
+            printf("\tsolde du client %d est : %f\n", f[a].code ,f[a].solde);
             }
         i++;
     } while ((i < n) && (a != i));
@@ -74,8 +74,44 @@ void recherche_code(client* f, int n) {
     }
 }
 
+void afficher_fiche(client f) {
+    printf("\nfiche du client :\n");
+    printf("\tcode: %d\n", f.code);
+    printf("\tnom: %s\n", f.nom);
+    printf("\tsolde: %f\n", f.solde);
+}
+
+int rechercheDicho(client* f, int n){
+    int co;
+    int trouve=0;  
+    int id=0;  
+    int im; 
+    printf("\nveillez entrer le code du client que vous voulez trouvez: ");
+    scanf("%d", & co);
+    while(!trouve && ((n - id) > 1)){
+        im = (id + n)/2;
+        trouve = (f[im].code == co);
+        if(f[im].code > co) 
+            n = im; 
+        else 
+            id = im;  
+    }
+  
+  if(f[id].code == co) return(id); 
+  else return(-1); 
+}
+
+void recherche_par_code_dicho(client* f,int n){
+    if (rechercheDicho(f,n)>=0){
+    printf("le client ayant le code %d a %f comme solde \nvoila ses informations:",f[rechercheDicho(f,n)].code,f[rechercheDicho(f,n)].solde);
+    afficher_fiche(f[rechercheDicho(f,n)]);
+    }else 
+    printf("Pas de correspondance\n");
+}
+
 void main(){
     client liste[N];
     remplir_n_client(liste,N);
-    recherche_code(liste,N);
+    //recherche_code(liste,N);
+    recherche_par_code_dicho(liste,N);
 }
