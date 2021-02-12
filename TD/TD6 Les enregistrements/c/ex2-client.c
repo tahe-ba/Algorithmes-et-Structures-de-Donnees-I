@@ -73,6 +73,7 @@ void recherche_code(client* f, int n) {
         printf("Pas de correspondance\n");
     }
 }
+
 void main(){
     client liste[N];
     remplir_n_client(liste,N);
