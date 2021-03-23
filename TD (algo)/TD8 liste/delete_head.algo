@@ -1,0 +1,13 @@
+Procedure delete_head (e/s l : Liste)
+var P : Liste 
+
+debut
+
+si l != nil alors
+    P <- l 
+    l <- P^.Suivant 
+sinon
+        retourner (l)
+fsi
+
+fin
