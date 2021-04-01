@@ -1,0 +1,247 @@
+algorithme DS
+
+note:enregistrement
+	ds:réel
+	autre:réel
+	exam:réel
+	moy:réel
+fin enreg
+
+classe:enregistement
+	id:entier
+	nom:chaine[20]
+fin enreg
+ 
+etudiant:enregistrement
+	id:entier
+	nom:chaine[20]
+	prenom:chaine[20]
+	clas:classe
+	not:note
+fin enreg
+
+fonction exist(t:tableau[1..50] de etudiant , n:entier , id :entier):booléen
+var i :entier
+	check:booléen
+debut	
+	i=0
+	check <- faux
+	tantque((i<=n)et(check=faux))faire
+		si(id=t[i].id) alors
+			check <- vrai
+		fin si
+		sinon
+		i <- i+1
+	fin tantque
+retourner(check)
+fin exist	
+	
+procedure ajouter (E/S t:tabelau [1..50] de etudiant,n:entier)
+var j,code,num:entier
+	check:booléen
+debut 
+	ecrire("ID de l'etudiant ")
+	lire(code)
+	check=exist(t,n,code)
+	si (check=faux)alors
+		ecrire("ID de la classe:")
+		lire(num)
+        si(t[n].class.id=num)alors
+            t[n+1].id <- code
+            ecrire("Nom de l'etudiant:")
+            lire(t[n+1].nom)
+            ecrire("Prenom de l'etudiant:")
+            lire(t[n+1].prenom)
+            n=n+1
+        fin si
+	sinon
+        ecrire("Etudiant deja existe")
+    fin si
+fin ajouter 
+
+procedure modifier (E\S t:tableau[1..50] de etudiant,n:entier)
+var i,id,code:entier
+    check:booléen
+debut
+	ecrire("donner id de l'etudiant = ")
+	lire(code)
+    check=exist(t,n,code)
+	si (check=vrai)alors
+        pour i <- 1 à n faire
+            si (code=t[i].id) alors
+                ecrire("Nouveau ID")
+                lire(t[i].id)
+                ecrire("Nouveau nom")
+                lire(t[i].nom)
+                ecrire("Nouveau prenom")
+                lire(t[i].prenom)
+            fin si
+        fin pour
+    sinon
+        ecrire("Etudiant n'existe pas")
+    fin si
+fin modifier 
+
+fonction rechercher (t=tableau [1..50] de etudiant, n:entier):entier
+var i ,code:entier
+debut	
+	i=0
+	ecrire("ID etudiant que vous voulez trouvez")
+	lire(code)
+	check=exist(t,n,code)
+	si (check=vrai)alors
+       pour i <- 1 à n faire
+            si (code=t[i].id) alors
+                retourner(i)
+            fin si
+        fin pour 
+    sinon
+        ecrire("Etudiant n'existe pas")
+    fin si 
+fin rechercher 
+
+procedure afficher (E t=tableau [1..n] de etudiant, n:entier)
+var i,code:entier
+debut
+    ecrire("ID etudiant que vous voulez afficher")
+	lire(code)
+	indice <- rechercher (t,n)
+    check=exist(t,n,code)
+	si (check=vrai)alors
+        ecrire("ID:",t[indice].id)
+        ecrire("Nom:",t[indice].nom)
+        ecrire("Prenom:",t[indice].prenom)
+        ecrire("Id classe",t[indice].class.id)
+        ecrire("Nom classe",t[indice].class.nom)
+    sinon
+        ecrire("Etudiant n'existe pas")
+    fin si 
+fin afficher 
+
+procedure saisie (E/S t:tableau [1..n1] de etudiant,n:entier)
+var i,code:entier
+    statut:booléen
+debut
+    statut=faux
+	ecrire("ID de classe")
+	lire(code)
+	pour i <- 1 à n faire
+        si (code=t[i].class.id) alors
+            ecrire("Note DS:")
+            lire(t[i].not.DS)
+            ecrire("Autre note:")
+            lire(t[i].not.autre)
+            ecrire("Note examen:")
+            lire(t[i].not.exam)
+            statut=vrai
+	fin pour
+    si(statut=faux) alors
+        ecrire("Classe introuvable")
+    fin si
+fin saisie 
+
+procedure calcul (E/S t:tableau de [1..50] de etudiant, n:entier)
+var i:entier
+debut 
+	ecrire("ID de l'etudiant ")
+	lire(code)
+    check=exist(t,n,code)
+	si (check=vrai)alors
+        pour i <- 1 à n faire
+            si(code=t[i].id) alors
+                t[i].not.moy <- ((t[i].not.ds*0.2)+(t[i].not.autre*0,1)+(t[i].not.exam*0.7))
+            fin si
+	    fin pour
+    sinon
+        ecrire("Etudiant n'existe pas")
+    fin si 
+fin calcul 
+
+procedure tri_1 (E/S t:tableau de [1..50] de etudiant ,n:entier)
+var i,aux:entier
+	permut:booléen
+debut
+	permut <- faux	
+	repeter
+		pour i  <- 1 à n-1 faire
+            si t[i].not.moy>t[i+1].not.moy
+                aux <- t[i+1]
+                t[i+1] <- t[i]
+                t[i] <- aux
+                permut <- vrai
+            fin si
+		fin pour
+	jusqu'a (permut = faux)
+fin tri_1
+
+#complexité de tri_1 =  O(n^2)
+
+procedure tri_2 (E/S t:tableau de [1..50] de etudiant , n:entier)
+var x,j,i:entier
+debut
+	pour i <- 1 à n-1 faire
+    		x <- T[i].not.moy    
+    		j <- i 
+    		Tant que ((j > 0) et (T[j - 1].not.moy > x)) faire
+            		T[j].not.moy <- T[j - 1].not.moy
+            		j <- j - 1
+    		fin Tant que
+    		T[j].not.moy <- x    
+	fin pour
+fin tri_2 
+
+#complexité de tri_2 =  O(n^2)
+
+procedure resultat (E t:tableau de [1..50] de etudiant,n:entier)
+var i:entier
+debut
+	pour i <- 1 à n faire
+		ecrire("ID:",t[i].id)
+		ecrire("Nom:",t[i].nom)
+		ecrire("Prenom:",t[i].prenom)
+		ecrire("ID classe:",t[i].class.id)
+		ecrire("Nom classe:",t[i].class.nom)
+		ecrire("DS:",t[i].not.DS)
+		ecrire("Autre note:",t[i].not.autre)
+		ecrire("Examen:",t[i].not.exam)
+		ecrire("Moyenne:",t[i].not.moy)
+	fin pour
+fin resultat 
+
+debut
+var rep ,n:entier
+	t:tableau[1..50] de etudiant
+debut 
+	ecrire("1 : Ajouter un nouvel étudiant à une classe ")
+	ecrire("2 : Modifier les information d'un étudiant ")
+	ecrire("3 : Supprimer un étudiant ")
+	ecrire("4 : Trouver un étudiant particulier ")
+	ecrire("5 : Afficher les informations d'un étudiant ")
+	ecrire("6 : Saisie des notes d’une classe ")
+	ecrire("7 : Calculer moyenne générale d'un étudiant ")
+	ecrire("8 : Trier les étudiants selon moyenne ")
+	ecrire("9 : Affichager la liste des résultats ")
+
+ecrire("Combien d'enregistrement")
+lire(n)
+
+repeter 
+	ecrire("choix:")
+	lire(rep)
+jusqua rep dans [1..9]
+
+selon (rep) faire
+	1:ajouter (t,n)
+	2:modifier (t,n)
+	3:supprimer_etudiant(t,n)
+	4:rechercher (t,n)
+	5:afficher (t,n)
+	6:saisie (t,n)
+	7:calcule_moy(t,n)
+	8:tri_moy(t,n)
+	9:resultat (t,n)
+sinon
+	ecrire("Choix non valide")
+fin selon
+
+fin
