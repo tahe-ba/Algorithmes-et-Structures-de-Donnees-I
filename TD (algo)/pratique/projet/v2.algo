@@ -1,0 +1,205 @@
+Mini projet en algorithmique et structure de données
+
+type
+étudiant = enregistrement
+    nom:chaine de 10 caractére
+    prenom:chaine de 10 caractére
+    code:entier
+    moy:réel
+fin
+
+type
+note = enregistrement
+    m1,m2,m3,m4,m5,m6,m7:réel
+    coef1,coef2,coef3,coef4,coef5,coef6,coef7:réel
+fin
+
+type
+element = enregistrement
+    etudiant:etudiant
+    suivant:^element
+fin
+
+Algorithme Mini projet
+var x:entier,m:tableau[1..100]de note,p : étudiant,l:^element
+Début
+    ecrire("1. Ajout d'un nouvel étudiant à une classe,")
+    ecrire("2. Modification d'un étudiant")
+    ecrire("3. Suppression d'un étudiant")
+    ecrire("4. Recherche d'un étudiant particulier")
+    ecrire("5. Affichage de toutes les informations concernant un étudiant,")
+    ecrire("6. Saisie des notes d’une classe,")
+    ecrire("7. Calcul de la moyenne générale pour un étudiant")
+    ecrire("8. Tri de la liste des étudiants selon la Moyenne générale (ordre croissant)")
+    ecrire("9. Affichage de la liste des résultats.")
+    ecrire("votre choix : "),lire(x)
+
+    selon x faire
+        1: Ajout(l)
+        2: Modification(p)
+        3: Suppression(p)
+        4: Recherche(l)
+        5: Affichageetudiant(l)
+        6: saisienote(m)
+        7: calculemoy(m,l)
+        8: Tri(l)
+        9: Affichage(l)
+    fin selon
+fin mini projet
+
+procédure Ajout(l:^element)
+var x:étudiant ,k,m:liste
+début
+    créer(k)
+    ecrire("saisir le nom :"),lire(k^.elem.nom)
+    ecrire("saisir le prenom :"),lire(k^.elem.prenom)
+    k^.elem.moy <- 0
+    ecrire("donner un code pour cet étudiant : "),lire(k^.elem.code)
+    k^.suiv <- Nil
+    si (l=Nil)alors
+        l <- K
+    si non
+        m=l
+    tant que (m^.suiv<>Nil)faire
+        m <- m^.suiv
+    fin tant que
+    m^.suiv <- k
+    fin si
+fin procédure
+
+Procédure Modification(p:étudiant)
+var x:entier
+début
+    ecrire("qu'est ce que vous voulez modifier : 1- Nom 2- prénom 3- code ")
+    lire(x)
+    si (x=1)alors
+        lire(p.nom)
+    si non si (x=2)alors
+        lire(p.prenom)
+    si non
+        lire(p.code)
+    fin si
+fin modification
+
+procédure Suppression(p : étudiant)
+début
+    libérer(&p)
+fin
+
+procédure Recherche(l:^element)
+var m:liste , x:entier
+début
+    créer(k)
+    ecrire("saisir le code de l'étudiant : "),lire(x)
+    si (l=Nil)alors
+        écrire("n'existe pas")
+    sinon
+        m <- l
+    tant que (m^.element.code<>x)faire
+        m <- m^.suiv
+    fin tant que
+    si(m^.element.code=x)alors
+        ecrire("Existe")
+    sinon
+        ecrire("n'existe pas")
+fin recherche
+
+procédure Affichageetudiant(l:^element)
+var d:liste
+début
+    si(l=Nil)alors
+        ecrire("N'ya pas d'étudiant")
+    sinon
+        d <- l
+    tant que (d^.suiv<>Nil)faire
+        ecrire(d^.element.nom)
+        ecrire(d^.element.prenom)
+        ecrire(d^.element.code)
+    fin tant que
+fin procédure
+
+fonction compter(l:^element):entier
+var x : entier ,k:liste
+début
+    si(l=Nil)alors
+        retourner(0)
+    sinon
+        k <- l
+        x=1
+    tant que(k^.suiv<>Nil)faire
+        x=x+1
+        k <- k^.suiv
+    fin tant que
+    retourner(x)
+fin fonction
+
+procédure saisienote(m:tableau[1..100]de note)
+var i:entier
+début
+    pour i de 1 à compter(l) faire
+        écrire("saisir la note du matiére ",i),lire(m[i].m1)
+        écrire("saisir la note du matiére ",i),lire(m[i].m2)
+        écrire("saisir la note du matiére ",i),lire(m[i].m3)
+        écrire("saisir la note du matiére ",i),lire(m[i].m4)
+        écrire("saisir la note du matiére ",i),lire(m[i].m5)
+        écrire("saisir la note du matiére ",i),lire(m[i].m6)
+        écrire("saisir la note du matiére ",i),lire(m[i].m7)
+        écrire("saisir la coefficient ",i),lire(m[i].coef1)
+        écrire("saisir la coefficient ",i),lire(m[i].coef2)
+        écrire("saisir la coefficient ",i),lire(m[i].coef3)
+        écrire("saisir la coefficient ",i),lire(m[i].coef4)
+        écrire("saisir la coefficient ",i),lire(m[i].coef5)
+        écrire("saisir la coefficient ",i),lire(m[i].coef6)
+        écrire("saisir la coefficient ",i),lire(m[i].coef7)
+    fin pour
+fin procédure
+
+procédure calculemoy(m:tableau[1..100]de note,x:entier,l:^element)
+var i:entier,s:réel
+début
+    pour i de 1 à x faire
+        s <- ((m[i].m1*coef1)+(m[i].m2*coef2)+(m[i].m3*coef3)+(m[i].m4*coef4)+(m[i].m5*coef5)+(m[i].m6*coef6)+(m[i].m7*coef7))/(coef1+coef2+coef3+coef4+coef5+coef6+coef7)
+        l^.element.moy <- s
+    fin pour
+fin procédure
+
+procédure Affichage(l:^element)
+var k:liste
+début 
+    si(l=Nil)alors
+        écrire("N'EXISTE PAS")
+    si non
+        k <- l
+    tant que(k^.suiv<>Nil)faire
+        écrire(k^.element.nom)
+        écrire(k^.element.prenom)
+        écrire(k^.element.moy)
+        écrire(k^.element.code)
+        k <- k^.suiv
+    fin tant que
+fin affichage
+
+procédure Tri(l:^element)
+var k:liste d:réel y,t:chaine de 10 caractére,j:entier
+début
+    si(l=Nil)alors
+        écrire("N'EXISTE PAS")
+    sinon
+        k <- l
+    tant que ((k^.suiv)^.suiv<>Nil)faire
+        si(k^.element.moy>(k^.suiv)^.element.moy))alors
+            y <- k^.element.nom
+            t <- k^.element.prenom
+            j <- k^.element.code
+            x <- k^.element.moy
+            k^.element.moy <- (k^.suiv)^.element.moy)
+            k^.element.nom <- (k^.suiv)^.element.nom)
+            k^.element.prenom <- (k^.suiv)^.element.prenom)
+            k^.element.code <- (k^.suiv)^.element.code)
+            (k^.suiv)^.element.moy) <- x
+            (k^.suiv)^.element.nom) <- y
+            (k^.suiv)^.element.prenom) <- t
+            (k^.suiv)^.element.code) <- j
+        fin si
+    fin tant que
+fin tri
